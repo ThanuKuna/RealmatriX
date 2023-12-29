@@ -1,0 +1,64 @@
+body {
+    background-color: #F6F6F6 !important;
+    overflow-x: hidden;
+    color: black;
+}
+
+.table-striped>tbody>tr:nth-child(2n+1)>td,
+.table-striped>tbody>tr:nth-child(2n+1)>th {
+    background-color: rgb(255, 240, 236);
+}
+
+nav {
+    background: rgb(255, 102, 0) !important;
+}
+
+thead,
+tbody {
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.Modal-Title {
+    text-transform: uppercase;
+    font-weight: 700 !important;
+    color: #103434 !important;
+}
+
+.search-input-container {
+    position: relative;
+}
+
+.SearchBox {
+    width: 300px;
+    padding-left: 5px;
+    border-radius: 5px;
+    background: #ffffff;
+    height: 35px;
+    border: 1px solid #ccc;
+    outline: none;
+    transition: border-color 0.2s ease-in-out;
+}
+
+.search-icon {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #555;
+    cursor: pointer;
+}
+
+.search-icon:hover {
+    color: #05004b;
+}
+
+.SearchBox:hover {
+    border-color: #007bff;
+}
+
+.btn-success {
+    background-color: rgb(255, 38, 0) !important;
+    border: none;
+}

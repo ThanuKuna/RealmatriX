@@ -15,12 +15,12 @@ import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import ViewPropertyModal from "../../components/modals/ViewPropertyModal";
 // import DeleteConfirmationModal from "../components/modals/confirmationmodal/DeleteConfirmationModal";
-// import AddPropertyfrom "../components/additionals/Addproperty";
+import AddPropertyModal from "../../components/modals/AddPropertyModal";
 // import propertyViewModal from "../components/modals/propertyViewModal";
 // import EditPropertyfrom "../components/additionals/Editproperty";
 
 function Property() {
-  // const [updateTrigger, setUpdateTrigger] = useState(false);
+  const [updateTrigger, setUpdateTrigger] = useState(false);
   const [propertyData, setpropertyData] = useState([]);
   const [selectedproperty, setSelectedproperty] = useState(null);
   const [showModal, setShowModal] = useState(false);
@@ -85,9 +85,10 @@ function Property() {
 
   // const [addCategoryModal, setAddCategoryModal] = useState(false);
 
-  // const handleOpen = () => {
-  //   setAddCategoryModal(!addCategoryModal);
-  // };
+  const handleOpen = () => {
+    setShowModal2(!showModal2);
+    fetchData();
+  };
 
   const handleChange3 = (event) => {
     setSearchTerm3(event.target.value);
@@ -263,7 +264,7 @@ function Property() {
             <div className="col-12 d-flex AddAttribute-Button-Section p-4">
               <button
                 className="d-flex gap-1 btn btn-success"
-                // onClick={handleOpen}
+                onClick={handleOpen}
               >
                 Addproperty
                 <AddCircleIcon />
@@ -350,6 +351,10 @@ function Property() {
         show={showModal}
         onHide={() => setShowModal(false)}
         propertyDetails={selectedproperty}
+      />
+        <AddPropertyModal
+        show={showModal2}
+        onHide={handleOpen}
       />
       <ToastContainer />
     </Sidebar>

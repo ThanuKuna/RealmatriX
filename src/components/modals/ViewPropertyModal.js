@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "../../App.css";
 import { Modal, Button } from "react-bootstrap";
-import axios from "axios";
 
 function ViewPropertyModal(props) {
   const { show, onHide, propertyDetails } = props;

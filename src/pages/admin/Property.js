@@ -13,6 +13,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import axios from "axios";
+import ViewPropertyModal from "../../components/modals/ViewPropertyModal";
 // import DeleteConfirmationModal from "../components/modals/confirmationmodal/DeleteConfirmationModal";
 // import AddPropertyfrom "../components/additionals/Addproperty";
 // import propertyViewModal from "../components/modals/propertyViewModal";
@@ -31,10 +32,10 @@ function Property() {
   const [categoryList, setcategoryList] = useState([]);
   const [brandList, setbrandList] = useState([]);
 
-  // const propertyViewModal = (property) => {
-  //   setSelectedproperty(property);
-  //   setShowModal(true);
-  // };
+  const propertyViewModal = (property) => {
+    setSelectedproperty(property);
+    setShowModal(true);
+  };
 
   useEffect(() => {
     (async () => await fetchData())();
@@ -314,7 +315,7 @@ function Property() {
                         <IconButton
                           aria-label="delete"
                           className="viewbutt"
-                          // onClick={() => propertyViewModal(property)}
+                          onClick={() => propertyViewModal(property)}
                         >
                           <VisibilityIcon className="text" />
                         </IconButton>
@@ -344,9 +345,12 @@ function Property() {
             </table>
           </div>
         </div>
-        {/* )} */}
       </div>
-
+      <ViewPropertyModal
+        show={showModal}
+        onHide={() => setShowModal(false)}
+        propertyDetails={selectedproperty}
+      />
       <ToastContainer />
     </Sidebar>
   );

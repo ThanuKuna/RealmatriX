@@ -88,9 +88,9 @@ function Property() {
   //   setAddCategoryModal(!addCategoryModal);
   // };
 
-  // const handleChange3 = (event) => {
-  //   setSearchTerm3(event.target.value);
-  // };
+  const handleChange3 = (event) => {
+    setSearchTerm3(event.target.value);
+  };
 
   // const handleSearchSubmit = (event) => {
   //   event.preventDefault();
@@ -166,7 +166,7 @@ function Property() {
         </nav>
         <div className="Property-Main-Section p-2">
           <div className="container mb-3 Property-FilterSection d-flex">
-            <h5 className="col-1">FilterList</h5>
+            <div className="col-1"></div>
             <div className="col-3">
               <div className="search-input-container mt-4">
                 <form>
@@ -175,7 +175,7 @@ function Property() {
                     type="text"
                     placeholder="Filter by propertyName"
                     value={searchTerm3}
-                    // onChange={handleChange3}
+                    onChange={handleChange3}
                   />
                   <div className="search-icon">
                     <SearchIcon />
@@ -259,10 +259,7 @@ function Property() {
             </div>
           </div>
           <div className="d-flex mb-2 Property-AddedSection">
-            <div className="col-6">
-              <h5>propertyList</h5>
-            </div>
-            <div className="col-6 d-flex AddAttribute-Button-Section p-4">
+            <div className="col-12 d-flex AddAttribute-Button-Section p-4">
               <button
                 className="d-flex gap-1 btn btn-success"
                 // onClick={handleOpen}

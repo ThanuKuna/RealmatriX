@@ -6,7 +6,7 @@ body {
 
 .table-striped>tbody>tr:nth-child(2n+1)>td,
 .table-striped>tbody>tr:nth-child(2n+1)>th {
-    background-color: rgb(255, 240, 236);
+    background-color: rgba(251, 210, 186, 0.362);
 }
 
 nav {

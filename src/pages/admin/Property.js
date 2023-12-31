@@ -72,19 +72,19 @@ function Property() {
     setSearchTerm3(event.target.value);
   };
 
-  // const handleSearchSubmit = (event) => {
-  //   event.preventDefault();
-  //   const searchedProperty= propertyData.propertys.find(
-  //     (property) => property.serialno === searchTerm3
-  //   );
-  //   if (searchedproperty) {
-  //     setSelectedproperty(searchedproperty);
-  //     setShowModal(true);
-  //     setSearchTerm3("");
-  //   } else {
-  //     toast.error("Propertynot Found");
-  //   }
-  // };
+  const handleSearchSubmit = (event) => {
+    event.preventDefault();
+    const selectedproperty= propertyData.find(
+      (property) => property.name === searchTerm3
+    );
+    if (selectedproperty) {
+      setSelectedproperty(selectedproperty);
+      setShowModal(true);
+      setSearchTerm3("");
+    } else {
+      toast.error("Property not Found");
+    }
+  };
 
   const handleStatusChange = (event) => {
     setselectedStatus(event.target.value);
@@ -132,7 +132,7 @@ function Property() {
             <div className="col-1"></div>
             <div className="col-3">
               <div className="search-input-container mt-4">
-                <form>
+                <form onSubmit={handleSearchSubmit}>
                   <input
                     className="SearchBox"
                     type="text"
@@ -140,7 +140,7 @@ function Property() {
                     value={searchTerm3}
                     onChange={handleChange3}
                   />
-                  <div className="search-icon">
+                  <div className="search-icon" onClick={handleSearchSubmit}>
                     <SearchIcon />
                   </div>
                   {searchTerm3 && (

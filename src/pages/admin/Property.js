@@ -167,7 +167,7 @@ function Property() {
                   value={selectedStatus}
                   onChange={handleStatusChange}
                 >
-                  <option value={""}>--Select an Status--</option>
+                  <option value={""}>Select an Status</option>
                   <option value={"Active"}>Active</option>
                   <option value={"Pending"}>Pending</option>
                   <option value={"Sold"}>Sold</option>
@@ -196,7 +196,7 @@ function Property() {
                   value={selectedType}
                   onChange={handleBrandChange}
                 >
-                  <option value={""}>--Select an Type--</option>
+                  <option value={""}>Select an Type</option>
                   <option value={"House"}>House</option>
                   <option value={"Yard"}>Yard</option>
                   <option value={"Apartments"}>Apartments</option>

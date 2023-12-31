@@ -14,10 +14,9 @@ import "react-toastify/dist/ReactToastify.css";
 
 import axios from "axios";
 import ViewPropertyModal from "../../components/modals/ViewPropertyModal";
-// import DeleteConfirmationModal from "../components/modals/confirmationmodal/DeleteConfirmationModal";
 import AddPropertyModal from "../../components/modals/AddPropertyModal";
-// import propertyViewModal from "../components/modals/propertyViewModal";
-// import EditPropertyfrom "../components/additionals/Editproperty";
+import EditPropertyModal from "../../components/modals/EditPropertyModal";
+import DeleteConfirmationModal from "../../components/modals/confirmationalmodal/DeleteConfirmationalModal";
 
 function Property() {
   const [updateTrigger, setUpdateTrigger] = useState(false);
@@ -25,16 +24,24 @@ function Property() {
   const [selectedproperty, setSelectedproperty] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [showModal2, setShowModal2] = useState(false);
+  const [showModal3, setShowModal3] = useState(false);
   const [searchTerm3, setSearchTerm3] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedBrand, setSelectedBrand] = useState("");
   const [filteredpropertyList, setfilteredpropertyList] = useState([]);
   const [categoryList, setcategoryList] = useState([]);
   const [brandList, setbrandList] = useState([]);
+  const [propertyToDelete, setPropertyToDelete] = useState(null);
+  const [confirmModalVisible, setConfirmModalVisible] = useState(false);
 
   const propertyViewModal = (property) => {
     setSelectedproperty(property);
     setShowModal(true);
+  };
+
+  const propertyEditModal = (property) => {
+    setSelectedproperty(property);
+    setShowModal3(true);
   };
 
   useEffect(() => {
@@ -49,9 +56,9 @@ function Property() {
   //   (async () => await fetchBrand())();
   // }, []);
 
-  // useEffect(() => {
-  //   fetchData();
-  // }, [updateTrigger]);
+  useEffect(() => {
+    fetchData();
+  }, [updateTrigger]);
 
   async function fetchData() {
     try {
@@ -128,33 +135,18 @@ function Property() {
   // const [showDeleteConfirmationModal, setShowDeleteConfirmationModal] = useState(false);
   // const [selectedpropertyIdToDelete, setSelectedpropertyIdToDelete] = useState(null);
 
-  // const handleDelete = (propertyId) => {
-  //   setSelectedpropertyIdToDelete(propertyId);
-  //   setShowDeleteConfirmationModal(true);
-  // };
+  const handleDelete = async (id) => {
+    setConfirmModalVisible(true);
+    setPropertyToDelete(id);
+  };
 
-  // const handleDeleteConfirmed = async () => {
-  //   try {
-  //     await axios.delete(http://127.0.0.1:8000/property/${selectedpropertyIdToDelete});
-  //     toast.success("Propertydeleted successfully");
-  //     setShowDeleteConfirmationModal(false);
-  //     setUpdateTrigger(!updateTrigger);
-  //   } catch (error) {
-  //     console.error("Error deleting property:", error);
-  //     toast.error("Error deleting property");
-  //     setShowDeleteConfirmationModal(false);
-  //   }
-  // };
+  async function DeleteProperty(id) {
+    setConfirmModalVisible(false);
+    await axios.delete("http://127.0.0.1:8000/property/" + id);
+    toast.success("Category deleted successfully");
+    fetchData();
+  }
 
-  // const handleDeleteCanceled = () => {
-  //   setShowDeleteConfirmationModal(false);
-  // };
-
-  // const propertyEditModal = (property) => {
-  //   setSelectedproperty(property);
-  //   setShowModal2(true);
-  //   fetchData();
-  // };
 
   return (
     <Sidebar>
@@ -323,14 +315,14 @@ function Property() {
                         <IconButton
                           aria-label="delete"
                           className="viewbutt"
-                          // onClick={() => propertyEditModal(property)}
+                          onClick={() => propertyEditModal(property)}
                         >
                           <EditIcon className="text-success" />
                         </IconButton>
                         <IconButton
                           aria-label="delete"
                           className="viewbutt"
-                          // onClick={() => handleDelete(property.id)}
+                          onClick={() => handleDelete(property.id)}
                         >
                           <DeleteIcon className="text-danger" />
                         </IconButton>
@@ -355,6 +347,19 @@ function Property() {
         <AddPropertyModal
         show={showModal2}
         onHide={handleOpen}
+      />
+      <EditPropertyModal
+        show={showModal3}
+        onHide={() => {
+          setShowModal3(false);
+          setUpdateTrigger(!updateTrigger);
+        }}
+        propertyDetails={selectedproperty}
+      />
+       <DeleteConfirmationModal
+        show={confirmModalVisible}
+        onHide={() => setConfirmModalVisible(false)}
+        onConfirm={() => DeleteProperty(propertyToDelete)}
       />
       <ToastContainer />
     </Sidebar>

@@ -62,8 +62,14 @@ tbody {
     background-color: rgb(255, 38, 0) !important;
     border: none;
 }
-.Modal-Title{
+
+.Modal-Title {
     color: orangered !important;
     font-size: 2em;
     font-weight: 700;
+}
+
+.confirmmodal-Back {
+    background-color: rgba(0, 0, 0, .5);
+    z-index: 99999;
 }

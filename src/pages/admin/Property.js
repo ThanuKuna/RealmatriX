@@ -26,8 +26,8 @@ function Property() {
   const [showModal2, setShowModal2] = useState(false);
   const [showModal3, setShowModal3] = useState(false);
   const [searchTerm3, setSearchTerm3] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState("");
-  const [selectedBrand, setSelectedBrand] = useState("");
+  const [selectedStatus, setselectedStatus] = useState("");
+  const [selectedType, setselectedType] = useState("");
   const [filteredpropertyList, setfilteredpropertyList] = useState([]);
   const [categoryList, setcategoryList] = useState([]);
   const [brandList, setbrandList] = useState([]);
@@ -48,13 +48,6 @@ function Property() {
     (async () => await fetchData())();
   }, []);
 
-  // useEffect(() => {
-  //   (async () => await fetchCategory())();
-  // }, []);
-
-  // useEffect(() => {
-  //   (async () => await fetchBrand())();
-  // }, []);
 
   useEffect(() => {
     fetchData();
@@ -69,28 +62,6 @@ function Property() {
       console.error("Error fetching Propertydata:", error);
     }
   }
-
-  // async function fetchCategory() {
-  //   try {
-  //     const response = await axios.get("http://127.0.0.1:8000/category");
-  //     const activeCategories = response.data.filter(category => category.status === "Active");
-  //     setcategoryList(activeCategories);
-  //   } catch (error) {
-  //     console.error("Error fetching categories:", error);
-  //   }
-  // }
-
-  // async function fetchBrand() {
-  //   try {
-  //     const response = await axios.get("http://127.0.0.1:8000/brand");
-  //     const activeBrand = response.data.filter(brand => brand.status === "Active");
-  //     setbrandList(activeBrand);
-  //   } catch (error) {
-  //     console.error("Error fetching categories:", error);
-  //   }
-  // }
-
-  // const [addCategoryModal, setAddCategoryModal] = useState(false);
 
   const handleOpen = () => {
     setShowModal2(!showModal2);
@@ -115,25 +86,23 @@ function Property() {
   //   }
   // };
 
-  // const handleCategoryChange = (event) => {
-  //   setSelectedCategory(event.target.value);
-  // };
-  // const handleBrandChange = (event) => {
-  //   setSelectedBrand(event.target.value);
-  // };
+  const handleStatusChange = (event) => {
+    setselectedStatus(event.target.value);
+  };
+  const handleBrandChange = (event) => {
+    setselectedType(event.target.value);
+  };
 
   useEffect(() => {
     const filteredData = propertyData.filter(
       (property) =>
-        property.name.toLowerCase().includes(searchTerm3.toLowerCase())
-      // (selectedCategory === "" || property.categories === selectedCategory) &&
-      // (selectedBrand === "" || property.brand === selectedBrand)
+        property.name.toLowerCase().includes(searchTerm3.toLowerCase()) &&
+        (selectedStatus === "" || property.status === selectedStatus) &&
+        (selectedType === "" || property.type === selectedType)
     );
     setfilteredpropertyList(filteredData);
-  }, [searchTerm3, propertyData]);
+  }, [searchTerm3, selectedStatus, selectedType, propertyData]);
 
-  // const [showDeleteConfirmationModal, setShowDeleteConfirmationModal] = useState(false);
-  // const [selectedpropertyIdToDelete, setSelectedpropertyIdToDelete] = useState(null);
 
   const handleDelete = async (id) => {
     setConfirmModalVisible(true);
@@ -195,18 +164,16 @@ function Property() {
               <div className="search-input-container mt-4 m-5">
                 <select
                   className="SearchBox"
-                  value={selectedCategory}
-                  // onChange={handleCategoryChange}
+                  value={selectedStatus}
+                  onChange={handleStatusChange}
                 >
-                  <option value={""}>--Select the Status--</option>
-                  {categoryList.map((category) => (
-                    <option key={category.id} value={category.categories}>
-                      {category.categories}
-                    </option>
-                  ))}
+                  <option value={""}>--Select an Status--</option>
+                  <option value={"Active"}>Active</option>
+                  <option value={"Pending"}>Pending</option>
+                  <option value={"Sold"}>Sold</option>
                 </select>
 
-                {selectedCategory && (
+                {selectedStatus && (
                   <div
                     className="search-icon"
                     style={{
@@ -214,7 +181,7 @@ function Property() {
                       backgroundColor: "white",
                       right: "8px",
                     }}
-                    onClick={() => setSelectedCategory("")}
+                    onClick={() => setselectedStatus("")}
                   >
                     <ClearIcon />
                   </div>
@@ -226,17 +193,17 @@ function Property() {
               <div className="search-input-container mt-4">
                 <select
                   className="SearchBox"
-                  value={selectedBrand}
-                  // onChange={handleBrandChange}
+                  value={selectedType}
+                  onChange={handleBrandChange}
                 >
-                  <option value={""}>--Select the Type--</option>
-                  {brandList.map((brand) => (
-                    <option key={brand.id} value={brand.brand}>
-                      {brand.brand}
-                    </option>
-                  ))}
+                  <option value={""}>--Select an Type--</option>
+                  <option value={"House"}>House</option>
+                  <option value={"Yard"}>Yard</option>
+                  <option value={"Apartments"}>Apartments</option>
+                  <option value={"Yard"}>Hotel</option>
+                  <option value={"Warehouse"}>Warehouse</option>
                 </select>
-                {selectedBrand && (
+                {selectedType && (
                   <div
                     className="search-icon si2"
                     style={{
@@ -244,7 +211,7 @@ function Property() {
                       backgroundColor: "white",
                       right: "5px",
                     }}
-                    // onClick={() => setSelectedBrand("")}
+                    onClick={() => setselectedType("")}
                   >
                     <ClearIcon />
                   </div>
@@ -301,7 +268,20 @@ function Property() {
                       <td>{property.name}</td>
                       <td>{property.address}</td>
                       <td>{property.type}</td>
-                      <td>{property.status}</td>
+                      <td>
+                        <div
+                          className={
+                            property.status === "Active"
+                              ? "active"
+                              : property.status === "Pending"
+                                ? "pending"
+                                : "sold"
+                          }
+
+                        >
+                          {property.status}
+                        </div>
+                      </td>
                       <td>{property.price}</td>
                       <td>{property.size}</td>
                       <td className="col-2">
@@ -344,7 +324,7 @@ function Property() {
         onHide={() => setShowModal(false)}
         propertyDetails={selectedproperty}
       />
-        <AddPropertyModal
+      <AddPropertyModal
         show={showModal2}
         onHide={handleOpen}
       />
@@ -356,7 +336,7 @@ function Property() {
         }}
         propertyDetails={selectedproperty}
       />
-       <DeleteConfirmationModal
+      <DeleteConfirmationModal
         show={confirmModalVisible}
         onHide={() => setConfirmModalVisible(false)}
         onConfirm={() => DeleteProperty(propertyToDelete)}

@@ -107,13 +107,26 @@ function AddPropertyModal(props) {
                                 <label for="exampleFormControlInput1" class="form-label">
                                     Type
                                 </label>
-                                <input
+                                <select
+                                    id="selectAddAttribute-attribute"
+                                    className="form-select"
+                                    onChange={(e) => setType(e.target.value)}
+                                    value={type}
+                                >
+                                    <option value={""}>--Select an Type--</option>
+                                    <option value={"House"}>House</option>
+                                    <option value={"Yard"}>Yard</option>
+                                    <option value={"Apartments"}>Apartments</option>
+                                    <option value={"Yard"}>Hotel</option>
+                                    <option value={"Warehouse"}>Warehouse</option>
+                                </select>
+                                {/* <input
                                     type="text"
                                     class="form-control"
                                     id="exampleFormControlInput1"
                                     onChange={(e) => setType(e.target.value)}
                                     value={type}
-                                />
+                                /> */}
                             </div>
                         </div>
                         <div className="col-6">
@@ -127,9 +140,10 @@ function AddPropertyModal(props) {
                                     onChange={(e) => setStatus(e.target.value)}
                                     value={status}
                                 >
-                                    <option>--Select an Attribute--</option>
-                                    <option value={"Available"}>Available</option>
-                                    <option value={"Non-Available"}>NonAvailable</option>
+                                    <option value={""}>--Select an Status--</option>
+                                    <option value={"Active"}>Active</option>
+                                    <option value={"Pending"}>Pending</option>
+                                    <option value={"Sold"}>Sold</option>
                                 </select>
                                 {/* <input
                                     type="text"

@@ -9,7 +9,7 @@ const UpdateConfirmationalModal = ({ show, onHide, onConfirm }) => {
         <Modal.Title className="Modal-Title" style={{color:'Green'}}>Conformation to Update Details !</Modal.Title>
       </Modal.Header>
       <Modal.Body className="Modal-Body-Confirm" >
-        <p>Are you sure you want to Update this Property Details ?</p>
+        <p>Are you sure you want to Update this Details ?</p>
       </Modal.Body>
       <Modal.Footer>
       <Button variant="success" style={{width:'200px'}} onClick={onConfirm}>
